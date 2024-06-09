@@ -45,7 +45,14 @@ jobs:
     - name: Build package
       working-directory: ./python-client
       run: python -m build
+    - name: Publish
+      env:
+        PYPI_API_KEY: ${{ secrets.PYPI_API_KEY }}
+      run: |
+        python3 -m pip install --upgrade twine
+        echo $PYPI_API_KEY > $HOME/.pypirc
+        python3 -m twine upload --repository eve-netease-api ./python-client/dist/*.whl
     - name: Upload a Build Artifact
       uses: actions/upload-artifact@v4.3.3
       with:
-        path: ./python-client/dist/eve_netease*
+        path: ./python-client/dist/*.whl
