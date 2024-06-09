@@ -46,11 +46,12 @@ jobs:
       working-directory: ./python-client
       run: python -m build
     - name: Publish
+      environment: pypi
       env:
         PYPI_API_KEY: ${{ secrets.PYPI_API_KEY }}
       run: |
-        python3 -m pip install --upgrade twine
         echo "$PYPI_API_KEY" > $HOME/.pypirc
+        python3 -m pip install --upgrade twine
         python3 -m twine upload --config-file $HOME/.pypirc ./python-client/dist/*.whl
     - name: Upload a Build Artifact
       uses: actions/upload-artifact@v4.3.3
