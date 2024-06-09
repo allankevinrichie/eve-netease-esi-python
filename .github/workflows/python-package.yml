@@ -10,6 +10,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    environment: pypi
     strategy:
       fail-fast: false
       matrix:
@@ -46,7 +47,6 @@ jobs:
       working-directory: ./python-client
       run: python -m build
     - name: Publish
-      environment: pypi
       env:
         PYPI_API_KEY: ${{ secrets.PYPI_API_KEY }}
       run: |
