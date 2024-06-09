@@ -51,7 +51,7 @@ jobs:
       run: |
         python3 -m pip install --upgrade twine
         echo "$PYPI_API_KEY" > $HOME/.pypirc
-        python3 -m twine upload ./python-client/dist/*.whl
+        python3 -m twine upload --config-file $HOME/.pypirc ./python-client/dist/*.whl
     - name: Upload a Build Artifact
       uses: actions/upload-artifact@v4.3.3
       with:
